@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <h1>Main</h1>
+    <h1>Dashboard</h1>
   </div>
 </template>
 
@@ -10,9 +10,6 @@ import Navbar from '../components/header/Header'
 export default {
   components: {
     Navbar
-  },
-  data() {
-    return {}
   }
 }
 </script>
