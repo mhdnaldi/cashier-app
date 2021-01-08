@@ -2,12 +2,24 @@
 
 export default {
   state: {
-    cart: []
+    cart: [],
+    total: 0
   },
   mutations: {
     cart(state, payload) {
-      state.cart.push(payload)
-      console.log(state.cart)
+      // state.cart.push(payload)
+      state.cart = payload
+
+      if (state.cart.length > 0) {
+        state.total = state.cart
+          .map(el => {
+            return el.price * el.qty
+          })
+          .reduce((el, i) => {
+            return el + i
+          })
+        console.log(state.total)
+      }
     }
   },
   actions: {
@@ -18,6 +30,9 @@ export default {
   getters: {
     cart(state) {
       return state.cart
+    },
+    total(state) {
+      return state.total
     }
   }
 }

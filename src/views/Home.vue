@@ -18,7 +18,13 @@
             <td>Rp. {{ value.item_price }}</td>
             <td>{{ value.item_category }}</td>
             <td>
-              <div class="add" @click="addToCart(value, index)">ADD</div>
+              <div
+                class="add"
+                v-if="!id.includes(value.id)"
+                @click="addToCart(value, index)"
+              >
+                ADD
+              </div>
             </td>
           </tr>
         </table>
@@ -40,7 +46,10 @@ export default {
     Cart
   },
   data() {
-    return {}
+    return {
+      id: [],
+      cartItems: []
+    }
   },
   mounted() {
     this.getAllItems()
@@ -54,7 +63,10 @@ export default {
         id: payload.id,
         qty: payload.item_qty
       }
-      this.cart(cart)
+      this.id.push(cart.id)
+      this.cartItems.push(cart)
+      // this.cart(cart)
+      this.cart(this.cartItems)
     }
   },
   computed: {

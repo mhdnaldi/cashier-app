@@ -11,6 +11,10 @@
         <div class="btn" @click="ascending(value, index)">+</div>
       </div>
     </div>
+    <div class="total">
+      <p>Total: Rp. {{ totalPrice }}</p>
+      <div class="checkout">Checkout</div>
+    </div>
   </div>
 </template>
 
@@ -23,19 +27,33 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['cart'])
+    ...mapGetters(['cart', 'total'])
   },
   methods: {
     ascending(payload) {
       payload.qty++
-      this.totalPrice = payload.price * payload.qty
-      console.log(this.totalPrice)
+
+      this.totalPrice = this.cart
+        .map((el) => {
+          return el.price * el.qty
+        })
+        .reduce((el, i) => {
+          return el + i
+        })
     },
     descending(payload, index) {
-      if (payload.qty > 0) {
+      if (payload.qty > 1) {
         payload.qty--
+        this.totalPrice = this.cart
+          .map((el) => {
+            return el.price * el.qty
+          })
+          .reduce((el, i) => {
+            return el + i
+          })
       } else {
         payload.qty = 0
+        this.cart = this.cart.splice(index, 1)
       }
     }
   }
@@ -44,9 +62,28 @@ export default {
 
 <style scoped>
 .cart {
+  position: relative;
   height: 500px;
   overflow-x: hidden;
   border-left: 5px solid #111;
+}
+
+.total {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkout {
+  background-color: red;
+  padding: 5px 10px;
 }
 
 .container {
