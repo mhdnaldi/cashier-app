@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container"></div>
+    <div class="container">Search, sort</div>
     <div class="grid">
       <div class="items">
         <table id="customers">
@@ -18,13 +18,7 @@
             <td>Rp. {{ value.item_price }}</td>
             <td>{{ value.item_category }}</td>
             <td>
-              <div
-                class="add"
-                v-if="!id.includes(value.id)"
-                @click="addToCart(value, index)"
-              >
-                ADD
-              </div>
+              <div class="add" @click="addToCart(value, index)">ADD</div>
             </td>
           </tr>
         </table>
@@ -47,7 +41,7 @@ export default {
   },
   data() {
     return {
-      id: [],
+      // id: [],
       cartItems: []
     }
   },
@@ -63,9 +57,14 @@ export default {
         id: payload.id,
         qty: payload.item_qty
       }
-      this.id.push(cart.id)
-      this.cartItems.push(cart)
-      // this.cart(cart)
+      let onCart = this.cartItems.some((el) => {
+        return el.id === payload.id
+      })
+      if (onCart) {
+        return
+      } else {
+        this.cartItems.push(cart)
+      }
       this.cart(this.cartItems)
     }
   },
@@ -83,9 +82,11 @@ export default {
 
 .grid {
   width: 95%;
+  height: 570px;
+  overflow-x: hidden;
   margin: auto;
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 1fr 1fr;
 }
 
 .cart {
@@ -94,20 +95,22 @@ export default {
 
 .add {
   text-align: center;
+  font-weight: bold;
   width: 70%;
   margin: 0 auto;
   padding: 10px 10px;
-  background-color: red;
+  background-color: rgb(50, 185, 16);
   border-radius: 5px;
   cursor: pointer;
 }
 
-.none {
-  display: none;
+.add:hover,
+.add:active {
+  background-color: rgb(44, 156, 16);
 }
 
-.add:hover {
-  background-color: rgb(221, 9, 9);
+.none {
+  display: none;
 }
 
 .items {
@@ -118,6 +121,7 @@ export default {
 
 .items td,
 .items th {
+  font-size: 12px;
   /* border: 1px solid #ddd; */
   padding: 8px 20px;
 }

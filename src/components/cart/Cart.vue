@@ -1,14 +1,18 @@
 <template>
-  <div class="cart">
-    <div class="container" v-for="(value, index) in cart" :key="index">
-      <div class="main">
-        <p>Name: {{ value.name }}</p>
-        <p>Price: Rp. {{ value.price * value.qty }}</p>
-      </div>
-      <div class="button">
-        <div class="btn" @click="descending(value, index)">-</div>
-        <div>{{ value.qty }}</div>
-        <div class="btn" @click="ascending(value, index)">+</div>
+  <div>
+    <div class="cart" v-if="cart.length <= 0"><h2>CART IS EMPTY</h2></div>
+    <div class="cart" v-if="cart.length > 0">
+      <div class="container" v-for="(value, index) in cart" :key="index">
+        <div class="main">
+          <p>Name: {{ value.name }}</p>
+          <p>Price: Rp. {{ value.price * value.qty }}</p>
+        </div>
+        <div class="button">
+          <div class="btn" @click="descending(value, index)">-</div>
+          <div>{{ value.qty }}</div>
+          <div class="btn" @click="ascending(value, index)">+</div>
+        </div>
+        <div class="lines"></div>
       </div>
     </div>
     <div class="total">
@@ -27,12 +31,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['cart', 'total'])
+    ...mapGetters(['cart'])
   },
   methods: {
     ascending(payload) {
       payload.qty++
-
       this.totalPrice = this.cart
         .map((el) => {
           return el.price * el.qty
@@ -42,7 +45,7 @@ export default {
         })
     },
     descending(payload, index) {
-      if (payload.qty > 1) {
+      if (payload.qty >= 1) {
         payload.qty--
         this.totalPrice = this.cart
           .map((el) => {
@@ -53,7 +56,6 @@ export default {
           })
       } else {
         payload.qty = 0
-        this.cart = this.cart.splice(index, 1)
       }
     }
   }
@@ -65,25 +67,31 @@ export default {
   position: relative;
   height: 500px;
   overflow-x: hidden;
-  border-left: 5px solid #111;
+  border: 5px solid #111;
+}
+
+.cart h2 {
+  text-align: center;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  left: 0;
+  right: 0;
 }
 
 .total {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 10px;
+  margin: 20px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .checkout {
   background-color: red;
   padding: 5px 10px;
+  box-sizing: border-box;
 }
 
 .container {
@@ -114,5 +122,10 @@ export default {
 
 .btn {
   cursor: pointer;
+}
+
+.lines {
+  width: 100%;
+  border-bottom: 1px solid black;
 }
 </style>
