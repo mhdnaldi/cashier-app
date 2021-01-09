@@ -16,14 +16,22 @@
       </div>
     </div>
     <div class="total">
-      <p>Total: Rp. {{ totalPrice }}</p>
-      <div class="checkout">Checkout</div>
+      <p>
+        Total:
+        {{
+          totalPrice.toLocaleString('id', {
+            style: 'currency',
+            currency: 'IDR'
+          })
+        }}
+      </p>
+      <div class="checkout" @click="checkout">Checkout</div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -33,7 +41,13 @@ export default {
   computed: {
     ...mapGetters(['cart'])
   },
+  updated() {
+    this.totalPrice = this.cart
+      .map((el) => el.price * el.qty)
+      .reduce((el, i) => el + i)
+  },
   methods: {
+    ...mapActions(['postOrders']),
     ascending(payload) {
       payload.qty++
       this.totalPrice = this.cart
@@ -45,7 +59,7 @@ export default {
         })
     },
     descending(payload, index) {
-      if (payload.qty >= 1) {
+      if (payload.qty > 1) {
         payload.qty--
         this.totalPrice = this.cart
           .map((el) => {
@@ -56,7 +70,19 @@ export default {
           })
       } else {
         payload.qty = 0
+        this.cart.splice(index, 1)
       }
+    },
+    checkout() {
+      const setData = this.cart.map((el) => {
+        return {
+          id: el.id,
+          qty: el.qty
+        }
+      })
+      this.postOrders(setData)
+        .then((res) => alert(res))
+        .catch((err) => alert(err))
     }
   }
 }
@@ -89,9 +115,16 @@ export default {
 }
 
 .checkout {
-  background-color: red;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 5px;
+  background-color: rgb(196, 44, 44);
   padding: 5px 10px;
   box-sizing: border-box;
+}
+
+.checkout:hover {
+  background-color: rgb(233, 36, 36);
 }
 
 .container {
