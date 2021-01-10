@@ -3,13 +3,12 @@
 export default {
   state: {
     cart: [],
-    total: 0
+    total: 0,
+    success: false
   },
   mutations: {
     cart(state, payload) {
-      // state.cart.push(payload)
       state.cart = payload
-
       if (state.cart.length > 0) {
         state.total = state.cart
           .map(el => {
@@ -18,7 +17,16 @@ export default {
           .reduce((el, i) => {
             return el + i
           })
-        console.log(state.total)
+      }
+    },
+    success(state, payload) {
+      state.cart = []
+    },
+    reload(state, payload) {
+      if (payload) {
+        state.success = false
+      } else {
+        state.success = true
       }
     }
   },
@@ -33,6 +41,9 @@ export default {
     },
     total(state) {
       return state.total
+    },
+    checkout(state) {
+      return state.success
     }
   }
 }

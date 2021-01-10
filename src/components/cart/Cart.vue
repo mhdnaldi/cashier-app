@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -48,19 +48,10 @@ export default {
   },
   methods: {
     ...mapActions(['postOrders']),
+    ...mapMutations(['success', 'reload']),
     ascending(payload) {
-      payload.qty++
-      this.totalPrice = this.cart
-        .map((el) => {
-          return el.price * el.qty
-        })
-        .reduce((el, i) => {
-          return el + i
-        })
-    },
-    descending(payload, index) {
-      if (payload.qty > 1) {
-        payload.qty--
+      if (this.cart) {
+        payload.qty++
         this.totalPrice = this.cart
           .map((el) => {
             return el.price * el.qty
@@ -68,9 +59,22 @@ export default {
           .reduce((el, i) => {
             return el + i
           })
-      } else {
-        payload.qty = 0
-        this.cart.splice(index, 1)
+      }
+    },
+    descending(payload, index) {
+      if (this.cart) {
+        if (payload.qty >= 1) {
+          payload.qty--
+          this.totalPrice = this.cart
+            .map((el) => {
+              return el.price * el.qty
+            })
+            .reduce((el, i) => {
+              return el + i
+            })
+        } else {
+          this.cart.splice(index, 1)
+        }
       }
     },
     checkout() {
@@ -81,7 +85,12 @@ export default {
         }
       })
       this.postOrders(setData)
-        .then((res) => alert(res))
+        .then((res) => {
+          alert(res)
+          this.success()
+          this.reload()
+          this.totalPrice = 0
+        })
         .catch((err) => alert(err))
     }
   }

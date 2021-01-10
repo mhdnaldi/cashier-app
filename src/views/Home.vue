@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Navbar from '../components/header/Header'
 import Cart from '../components/cart/Cart'
 export default {
@@ -50,7 +50,12 @@ export default {
   },
   methods: {
     ...mapActions(['getAllItems', 'cart']),
+    ...mapMutations(['reload']),
     addToCart(payload, index) {
+      if (this.checkout) {
+        this.cartItems = []
+        this.reload(true)
+      }
       let cart = {
         name: payload.item_name,
         price: payload.item_price,
@@ -60,16 +65,14 @@ export default {
       let onCart = this.cartItems.some((el) => {
         return el.id === payload.id
       })
-      if (onCart) {
-        return
-      } else {
+      if (!onCart) {
         this.cartItems.push(cart)
       }
       this.cart(this.cartItems)
     }
   },
   computed: {
-    ...mapGetters(['items'])
+    ...mapGetters(['items', 'checkout'])
   }
 }
 </script>

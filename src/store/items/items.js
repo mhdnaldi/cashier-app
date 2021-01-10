@@ -23,7 +23,6 @@ export default {
       })
     },
     postItems(context, payload) {
-      // console.log(payload)
       return new Promise((resolve, reject) => {
         axios
           .post('items/', payload)
@@ -36,7 +35,6 @@ export default {
       })
     },
     deleteItems(context, payload) {
-      console.log(payload)
       return new Promise((resolve, reject) => {
         axios
           .delete(`items/delete-items/${payload}`)

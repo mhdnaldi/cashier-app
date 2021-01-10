@@ -48,12 +48,16 @@
           <tr v-for="(value, index) in items" :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ value.item_name }}</td>
-            <td>Rp. {{ value.item_capital }}</td>
-            <td>Rp. {{ value.item_price }}</td>
+            <td>{{ value.item_capital }}</td>
+            <td>{{ value.item_price }}</td>
             <td>{{ value.item_category }}</td>
             <td>
-              <div class="edit-btn" @click="editItems(value)">Edit</div>
-              <div class="delete-btn" @click="deleteItem(value.id)">Delete</div>
+              <div class="btn-grid">
+                <div class="edit-btn" @click="editItems(value)">Edit</div>
+                <div class="delete-btn" @click="deleteItem(value.id)">
+                  Delete
+                </div>
+              </div>
             </td>
           </tr>
         </table>
@@ -208,7 +212,7 @@ select {
 }
 
 .form {
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #15022e;
   padding: 20px;
 }
@@ -224,12 +228,14 @@ select {
   width: 100%;
   height: 600px;
   overflow-x: hidden;
+  text-align: center;
 }
 
 .items td,
 .items th {
   border: 1px solid #ddd;
   padding: 8px 20px;
+  font-size: 12px;
 }
 
 .items tr {
@@ -248,17 +254,22 @@ select {
   color: white;
 }
 
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
 .edit-btn,
 .delete-btn {
   width: 100%;
-  height: 50%;
-  margin: 10px auto;
-  padding: 10px 20px;
+  height: 100%;
+  padding: 8px 20px;
   text-align: center;
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
-  /* display: inline-block; */
+  display: block;
 }
 
 .edit-btn {

@@ -5,7 +5,6 @@ export default {
   mutations: {},
   actions: {
     postOrders(context, payload) {
-      console.log(payload)
       return new Promise((resolve, reject) => {
         axios
           .post('orders/post-order', payload)
