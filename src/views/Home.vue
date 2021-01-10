@@ -1,7 +1,22 @@
 <template>
   <div>
     <Navbar />
-    <div class="container">Search, sort</div>
+    <div class="container">
+      <div class="form">
+        <input
+          class="input"
+          type="text"
+          placeholder="Search..."
+          @input="onChange($event.target.value)"
+        />
+        <select @change="changeCategory($event.target.value)">
+          <option value="">Category</option>
+          <option value="MAKANAN">Makanan</option>
+          <option value="BUKAN MAKANAN">Bukan Makanan</option>
+          <option value="ROKOK">Rokok</option>
+        </select>
+      </div>
+    </div>
     <div class="grid">
       <div class="items">
         <table id="customers">
@@ -15,7 +30,7 @@
           <tr v-for="(value, index) in items" :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ value.item_name }}</td>
-            <td>Rp. {{ value.item_price }}</td>
+            <td>{{ value.item_price }}</td>
             <td>{{ value.item_category }}</td>
             <td>
               <div class="add" @click="addToCart(value, index)">ADD</div>
@@ -42,14 +57,15 @@ export default {
   data() {
     return {
       // id: [],
-      cartItems: []
+      cartItems: [],
+      search: ''
     }
   },
   mounted() {
     this.getAllItems()
   },
   methods: {
-    ...mapActions(['getAllItems', 'cart']),
+    ...mapActions(['getAllItems', 'cart', 'searchItems', 'sortItems']),
     ...mapMutations(['reload']),
     addToCart(payload, index) {
       if (this.checkout) {
@@ -69,6 +85,13 @@ export default {
         this.cartItems.push(cart)
       }
       this.cart(this.cartItems)
+    },
+    onChange(event) {
+      this.search = event
+      this.searchItems(this.search)
+    },
+    changeCategory(event) {
+      this.sortItems(event)
     }
   },
   computed: {
@@ -79,14 +102,14 @@ export default {
 
 <style scoped>
 .container {
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
   height: 40px;
 }
 
 .grid {
   width: 95%;
   height: 570px;
-  overflow-x: hidden;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -120,6 +143,8 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  overflow-x: hidden;
+  height: 500px;
 }
 
 .items td,
@@ -144,4 +169,41 @@ export default {
   background-color: #040a2c;
   color: white;
 }
+
+.input[type='text'] {
+  border: 1px solid rgb(8, 40, 83);
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+  background-color: rgb(15, 48, 92);
+  padding: 2px 4px;
+  color: #fff;
+}
+
+::placeholder {
+  color: rgb(173, 172, 172);
+}
+.input[type='text']:focus {
+  outline: none;
+}
+
+.form {
+  margin: 10px 0;
+}
+
+select {
+  margin-left: 10px;
+  width: 110px;
+  height: 30px;
+  color: rgb(173, 172, 172);
+  background-color: rgb(15, 48, 92);
+  border: 1px solid rgb(8, 40, 83);
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: none;
+}
+
+/* FORM INPUT */
 </style>

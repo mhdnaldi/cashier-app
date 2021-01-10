@@ -57,6 +57,24 @@ export default {
             reject(err.response.msg)
           })
       })
+    },
+    searchItems(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`items/search-items?name=${payload}`)
+          .then(res => {
+            context.commit('getAllItems', res.data.data)
+          })
+          .catch(err => err.response.msg)
+      })
+    },
+    sortItems(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`items/sort-items?category=${payload}`)
+          .then(res => context.commit('getAllItems', res.data.data))
+          .catch(err => err.response.msg)
+      })
     }
   },
   getters: {

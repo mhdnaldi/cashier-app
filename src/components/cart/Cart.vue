@@ -15,7 +15,7 @@
         <div class="lines"></div>
       </div>
     </div>
-    <div class="total">
+    <div class="total" v-if="totalPrice > 0">
       <p>
         Total:
         {{
