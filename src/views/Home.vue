@@ -21,17 +21,19 @@
       <div class="items">
         <table id="customers">
           <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>NAME</th>
-            <th>PRICE</th>
             <th>CATEGORY</th>
+            <th>PRICE</th>
             <th>ADD TO CART</th>
           </tr>
           <tr v-for="(value, index) in items" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ value.item_name }}</td>
-            <td>{{ value.item_price }}</td>
-            <td>{{ value.item_category }}</td>
+            <td style="text-align: left">{{ value.item_name }}</td>
+            <td style="text-align: left">{{ value.item_category }}</td>
+            <td style="text-align: right">
+              <strong>{{ value.item_price }}</strong>
+            </td>
             <td>
               <div class="add" @click="addToCart(value, index)">ADD</div>
             </td>
@@ -109,7 +111,7 @@ export default {
 
 .grid {
   width: 95%;
-  height: 570px;
+  height: 530px;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -124,86 +126,82 @@ export default {
   font-weight: bold;
   width: 70%;
   margin: 0 auto;
-  padding: 10px 10px;
-  background-color: rgb(50, 185, 16);
+  padding: 5px 5px;
+  font-size: 12px;
+  background-color: #74c7b8;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .add:hover,
 .add:active {
-  background-color: rgb(44, 156, 16);
-}
-
-.none {
-  display: none;
+  background-color: #62b6a7;
 }
 
 .items {
+  color: #111;
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   overflow-x: hidden;
-  height: 500px;
+  height: 440px;
 }
 
 .items td,
 .items th {
-  font-size: 12px;
+  font-size: 16px;
   /* border: 1px solid #ddd; */
   padding: 8px 20px;
 }
 
 .items tr {
-  background-color: #111;
+  background-color: #ffcda3;
 }
 
 .items tr:hover {
-  background-color: #222;
+  background-color: #ef4f4f;
 }
 
 .items th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #040a2c;
+  background-color: #74c7b8;
   color: white;
 }
 
 .input[type='text'] {
-  border: 1px solid rgb(8, 40, 83);
+  border: 3px solid #111;
   border-radius: 5px;
   width: 200px;
   height: 30px;
-  background-color: rgb(15, 48, 92);
+  background-color: #ee9595;
   padding: 2px 4px;
-  color: #fff;
+  color: #111;
 }
 
 ::placeholder {
-  color: rgb(173, 172, 172);
+  color: #111;
 }
 .input[type='text']:focus {
   outline: none;
 }
 
 .form {
-  margin: 10px 0;
+  margin: 16px 0;
 }
 
 select {
   margin-left: 10px;
   width: 110px;
   height: 30px;
-  color: rgb(173, 172, 172);
-  background-color: rgb(15, 48, 92);
-  border: 1px solid rgb(8, 40, 83);
+  color: #111;
+  background-color: #ee9595;
+  border: 3px solid #111;
   border-radius: 5px;
 }
 
 select:focus {
   outline: none;
 }
-
-/* FORM INPUT */
 </style>

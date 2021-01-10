@@ -1,22 +1,23 @@
 <template>
   <div>
-    <div class="cart" v-if="cart.length <= 0"><h2>CART IS EMPTY</h2></div>
+    <div class="cart" v-if="cart.length <= 0">
+      <h2 style="color: #111">CART IS EMPTY</h2>
+    </div>
     <div class="cart" v-if="cart.length > 0">
       <div class="container" v-for="(value, index) in cart" :key="index">
         <div class="main">
           <p>Name: {{ value.name }}</p>
-          <p>Price: Rp. {{ value.price * value.qty }}</p>
+          <strong>Price: Rp. {{ value.price * value.qty }}</strong>
         </div>
         <div class="button">
-          <div class="btn" @click="descending(value, index)">-</div>
+          <div class="btn descending" @click="descending(value, index)">-</div>
           <div>{{ value.qty }}</div>
-          <div class="btn" @click="ascending(value, index)">+</div>
+          <div class="btn ascending" @click="ascending(value, index)">+</div>
         </div>
-        <div class="lines"></div>
       </div>
     </div>
-    <div class="total" v-if="totalPrice > 0">
-      <p>
+    <div style="color: #111" class="total" v-if="totalPrice > 0">
+      <strong>
         Total:
         {{
           totalPrice.toLocaleString('id', {
@@ -24,7 +25,7 @@
             currency: 'IDR'
           })
         }}
-      </p>
+      </strong>
       <div class="checkout" @click="checkout">Checkout</div>
     </div>
   </div>
@@ -98,11 +99,16 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  color: #111;
+}
 .cart {
   position: relative;
-  height: 500px;
+  height: 440px;
   overflow-x: hidden;
   border: 5px solid #111;
+  background-color: #ee9595;
+  border-radius: 20px;
 }
 
 .cart h2 {
@@ -127,18 +133,21 @@ export default {
   cursor: pointer;
   text-transform: uppercase;
   border-radius: 5px;
-  background-color: rgb(196, 44, 44);
+  background-color: #74c7b8;
+  color: #111;
   padding: 5px 10px;
   box-sizing: border-box;
 }
 
 .checkout:hover {
-  background-color: rgb(233, 36, 36);
+  background-color: #ee9595;
 }
 
 .container {
   width: 90%;
   margin: 10px auto;
+  padding-bottom: 10px;
+  border-bottom: 4px solid #111;
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
@@ -154,8 +163,9 @@ export default {
 }
 
 .button div {
+  color: #fff;
   font-weight: bold;
-  background-color: black;
+  background-color: #111;
   padding: 8px;
   margin: 3px;
   text-align: center;
@@ -166,8 +176,13 @@ export default {
   cursor: pointer;
 }
 
-.lines {
-  width: 100%;
-  border-bottom: 1px solid black;
+.ascending:hover {
+  background-color: #ffcda3;
+  color: #111;
+}
+
+.descending:hover {
+  background-color: #74c7b8;
+  color: #111;
 }
 </style>

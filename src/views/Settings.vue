@@ -40,17 +40,21 @@
           <tr>
             <th>NO</th>
             <th>NAME</th>
+            <th>CATEGORY</th>
             <th>CAPITAL</th>
             <th>PRICE</th>
-            <th>CATEGORY</th>
             <th></th>
           </tr>
           <tr v-for="(value, index) in items" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ value.item_name }}</td>
-            <td>{{ value.item_capital }}</td>
-            <td>{{ value.item_price }}</td>
-            <td>{{ value.item_category }}</td>
+            <td style="text-align: left">{{ value.item_name }}</td>
+            <td style="text-align: left">{{ value.item_category }}</td>
+            <td style="text-align: right">
+              <strong>{{ value.item_capital }}</strong>
+            </td>
+            <td style="text-align: right">
+              <strong>{{ value.item_price }}</strong>
+            </td>
             <td>
               <div class="btn-grid">
                 <div class="edit-btn" @click="editItems(value)">Edit</div>
@@ -172,7 +176,7 @@ export default {
 .items {
   width: 100%;
   border-radius: 10px;
-  background-color: #15022e;
+  background-color: #ee9595;
 }
 
 input[type='text'],
@@ -198,8 +202,8 @@ select {
 
 .submit {
   width: 100%;
-  background-color: #4caf50;
-  color: white;
+  background-color: #ffcda3;
+  color: #111;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -208,12 +212,12 @@ select {
 }
 
 .submit:hover {
-  background-color: #45a049;
+  background-color: #f5be91;
 }
 
 .form {
   border-radius: 10px;
-  background-color: #15022e;
+  background-color: #ee9595;
   padding: 20px;
 }
 
@@ -223,34 +227,34 @@ select {
 }
 
 .items {
+  color: #111;
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
-  height: 600px;
+  height: 540px;
   overflow-x: hidden;
   text-align: center;
 }
 
 .items td,
 .items th {
-  border: 1px solid #ddd;
   padding: 8px 20px;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .items tr {
-  background-color: #111;
+  background-color: #ffcda3;
 }
 
 .items tr:hover {
-  background-color: #222;
+  background-color: #ef4f4f;
 }
 
 .items th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #040a2c;
+  background-color: #74c7b8;
   color: white;
 }
 
@@ -266,17 +270,21 @@ select {
   height: 100%;
   padding: 8px 20px;
   text-align: center;
-  color: #fff;
+  color: #111;
   border-radius: 10px;
   cursor: pointer;
   display: block;
 }
 
 .edit-btn {
-  background-color: rgb(21, 190, 21);
+  background-color: #ee9595;
 }
 
 .delete-btn {
-  background-color: rgb(201, 35, 35);
+  background-color: #74c7b8;
+}
+
+label {
+  color: #111;
 }
 </style>

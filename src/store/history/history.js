@@ -4,7 +4,8 @@ export default {
   state: {
     day: {},
     week: {},
-    month: {}
+    month: {},
+    recentOrders: []
   },
   mutations: {
     day(state, payload) {
@@ -15,7 +16,10 @@ export default {
     },
     month(state, payload) {
       state.month = payload
-      console.log(payload)
+    },
+    recent(state, payload) {
+      state.recentOrders = payload
+      console.log(state.recentOrders)
     }
   },
   actions: {
@@ -42,6 +46,13 @@ export default {
           .then(res => context.commit('month', res.data.data))
           .catch(err => reject(err.response.data.msg))
       })
+    },
+    recentOrders(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get('history/recent-orders')
+          .then(res => context.commit('recent', res.data.data))
+      })
     }
   },
   getters: {
@@ -53,6 +64,9 @@ export default {
     },
     month(state) {
       return state.month
+    },
+    recent(state) {
+      return state.recentOrders
     }
   }
 }

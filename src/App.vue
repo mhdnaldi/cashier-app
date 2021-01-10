@@ -12,8 +12,8 @@
 }
 
 html {
-  color: #fff;
-  background-color: #2c3e50;
+  color: grey;
+  background-color: #ef4f4f;
 }
 
 #app {
