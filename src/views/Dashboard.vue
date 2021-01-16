@@ -148,7 +148,6 @@ export default {
 .items th {
   font-size: 16px;
   text-align: center;
-  /* border: 1px solid #ddd; */
   padding: 8px 20px;
 }
 
@@ -157,7 +156,7 @@ export default {
 }
 
 .items tr:hover {
-  background-color: #ef4f4f;
+  background-color: #ee9595;
 }
 
 .items th {

@@ -3,7 +3,7 @@
     <header>
       <ul>
         <li class="list-item">
-          <router-link tag="li" to="/">Home</router-link>
+          <router-link active-class="active" tag="li" to="/">Home</router-link>
         </li>
         <li class="list-item">
           <router-link tag="li" to="/dashboard">Dashboard</router-link>

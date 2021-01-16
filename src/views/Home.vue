@@ -107,6 +107,7 @@ export default {
   width: 95%;
   margin: 0 auto;
   height: 40px;
+  position: relative;
 }
 
 .grid {
@@ -159,7 +160,7 @@ export default {
 }
 
 .items tr:hover {
-  background-color: #ef4f4f;
+  background-color: #ee9595;
 }
 
 .items th {
@@ -171,7 +172,7 @@ export default {
 }
 
 .input[type='text'] {
-  border: 3px solid #111;
+  border: 3px solid #ee9595;
   border-radius: 5px;
   width: 200px;
   height: 30px;
@@ -197,7 +198,7 @@ select {
   height: 30px;
   color: #111;
   background-color: #ee9595;
-  border: 3px solid #111;
+  border: 3px solid #ee9595;
   border-radius: 5px;
 }
 

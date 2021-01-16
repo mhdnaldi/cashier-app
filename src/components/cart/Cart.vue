@@ -106,9 +106,9 @@ export default {
   position: relative;
   height: 440px;
   overflow-x: hidden;
-  border: 5px solid #111;
+  border: 5px solid #ee9595;
   background-color: #ee9595;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 
 .cart h2 {

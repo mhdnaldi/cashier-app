@@ -36,6 +36,16 @@
         </form>
       </div>
       <div class="items">
+        <div>
+          <input
+            class="search"
+            placeholder="Search..."
+            type="text"
+            name=""
+            id=""
+            @input="onSearch"
+          />
+        </div>
         <table id="items">
           <tr>
             <th>NO</th>
@@ -95,7 +105,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getAllItems', 'postItems', 'deleteItems', 'patchItems']),
+    ...mapActions([
+      'getAllItems',
+      'postItems',
+      'deleteItems',
+      'patchItems',
+      'searchItems'
+    ]),
     submitData() {
       this.postItems(this.form)
         .then((res) => {
@@ -156,6 +172,9 @@ export default {
         .catch((err) => {
           alert(err)
         })
+    },
+    onSearch(event) {
+      this.searchItems(event.target.value)
     }
   },
   computed: {
@@ -286,5 +305,24 @@ select {
 
 label {
   color: #111;
+}
+
+.search[type='text'] {
+  border: 3px solid#fff;
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+  background-color: #fff;
+  padding: 2px 4px;
+  color: #111;
+  margin-top: 20px;
+  margin-bottom: -20px;
+}
+
+::placeholder {
+  color: #111;
+}
+.search[type='text']:focus {
+  outline: none;
 }
 </style>
